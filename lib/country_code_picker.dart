@@ -112,7 +112,8 @@ class _CountryPickerWidgetState extends State<CountryPickerWidget> {
             (element) => element.callingCode == country.callingCode);
         _list.insert(0, country);
       }
-    } catch (e) {} finally {
+    } catch (e) {
+    } finally {
       setState(() {
         _filteredList = _list.map((e) => e).toList();
         _isLoading = false;

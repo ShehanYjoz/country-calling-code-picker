@@ -40,12 +40,17 @@ Future<Country?> getCountryByCountryCode(
   return list.firstWhere((element) => element.countryCode == countryCode);
 }
 
-Future<Country?> showCountryPickerSheet(BuildContext context,
-    {Widget? title,
-    Widget? cancelWidget,
-    double cornerRadius: 35,
-    bool focusSearchBox: false,
-    double heightFactor: 0.9}) {
+Future<Country?> showCountryPickerSheet(
+  BuildContext context, {
+  Widget? title,
+  Widget? cancelWidget,
+  double cornerRadius: 35,
+  bool focusSearchBox: false,
+  double heightFactor: 0.9,
+  InputDecoration? searchInputDecoration,
+  TextStyle? searchInputStyle,
+  TextStyle? itemTextStyle,
+}) {
   assert(heightFactor <= 0.9 && heightFactor >= 0.4,
       'heightFactor must be between 0.4 and 0.9');
   return showModalBottomSheet<Country?>(
@@ -88,6 +93,9 @@ Future<Country?> showCountryPickerSheet(BuildContext context,
               SizedBox(height: 16),
               Expanded(
                 child: CountryPickerWidget(
+                  itemTextStyle: itemTextStyle!,
+                  searchInputDecoration: searchInputDecoration!,
+                  searchInputStyle: searchInputStyle!,
                   onSelected: (country) => Navigator.of(context).pop(country),
                 ),
               ),
@@ -122,7 +130,8 @@ Future<Country?> showCountryPickerDialog(
                       bottom: 0,
                       child: TextButton(
                           child: Text('Cancel'),
-                          onPressed: () => Navigator.pop(context)),
+                          onPressed: () =>
+                              Navigator.of(context, rootNavigator: true).pop()),
                     ),
                     Center(
                       child: title ??
@@ -140,7 +149,9 @@ Future<Country?> showCountryPickerDialog(
                 SizedBox(height: 16),
                 Expanded(
                   child: CountryPickerWidget(
-                    onSelected: (country) => Navigator.of(context).pop(country),
+                    onSelected: (country) =>
+                        Navigator.of(context, rootNavigator: true, country)
+                            .pop(),
                   ),
                 ),
               ],
