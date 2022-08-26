@@ -130,8 +130,7 @@ Future<Country?> showCountryPickerDialog(
                       bottom: 0,
                       child: TextButton(
                           child: Text('Cancel'),
-                          onPressed: () =>
-                              Navigator.of(context, rootNavigator: true).pop()),
+                          onPressed: () =>   Navigator.of(context, rootNavigator: true).pop(),
                     ),
                     Center(
                       child: title ??
@@ -150,8 +149,7 @@ Future<Country?> showCountryPickerDialog(
                 Expanded(
                   child: CountryPickerWidget(
                     onSelected: (country) =>
-                        Navigator.of(context, rootNavigator: true, country)
-                            .pop(),
+                        Navigator.of(context, rootNavigator: true).pop(country),
                   ),
                 ),
               ],
